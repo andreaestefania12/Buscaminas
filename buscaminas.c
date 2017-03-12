@@ -11,13 +11,11 @@ int main(int argc, char  *argv[])
 	return 0;
 }
 
-int** makeMatrix(int rows, int lines, int** matrix)
+void makeMatrix(int rows, int lines, int** matrix)
 {
 	int i;
 	for (int i = 0; i < rows; ++i)
 	{
 		matrix[i] = (int*) malloc (lines*(sizeof(int)));
 	}
-
-	return matrix;
 }
