@@ -16,6 +16,8 @@ void fillMatrix(int rows, int lines, tipoCasilla** matrix);
 
 void printMatrix(int rows, int lines, tipoCasilla** matrix);
 
+void putMinas(int rows, int lines, tipoCasilla** matrix, int nMinas);
+
 int main(int argc, char *argv[])
 {
 	int rows = atoi(argv[1]);
@@ -68,5 +70,19 @@ void printMatrix(int rows, int lines, tipoCasilla** matrix)
 		}
 		printf("\n");
 		
+	}
+}
+
+void putMinas(int rows, int lines, tipoCasilla** matrix, int nMinas)
+{
+	int posFil, posCol,n;
+	srand(time(NULL));
+	n=0;
+	while(n < nMinas)
+	{
+		posFil = rand()%rows;
+		posCol = rand()%lines;
+		matrix[posFil][posCol].tipo= 'M';
+		n++;
 	}
 }
