@@ -15,11 +15,12 @@ tipoCasilla** makeMatrix(int rows, int lines);
 
 void fillMatrix(int rows, int lines, tipoCasilla** matrix);
 
-void printMatrix(int rows, int lines, tipoCasilla** matrix);
-
 void putMinas(int rows, int lines, tipoCasilla** matrix, int nMinas);
 
 void llenarNUm(int rows, int lines, tipoCasilla** matrix);
+
+void printMatrix(int rows, int lines, tipoCasilla** matrix);
+
 
 
 int main(int argc, char *argv[])
@@ -62,23 +63,7 @@ void fillMatrix(int rows, int lines, tipoCasilla** matrix)
 		}
 }
 
-void printMatrix(int rows, int lines, tipoCasilla** matrix)
-{
-	int i, j;
-	for(i = 0; i < rows; i++){
 
-
-		printf(" | ");
-		for (j = 0; j < lines; ++j)
-		{
-			printf ("%c ", matrix[i][j].etiqueta);
-			printf ("%c ",matrix[i][j].tipo );
-			printf ("%d | ",matrix[i][j].nMinas);
-		}
-		printf("\n");
-		
-	}
-}
 
 void putMinas(int rows, int lines, tipoCasilla** matrix, int nMinas)
 {
@@ -108,12 +93,12 @@ void llenarNUm(int rows, int lines, tipoCasilla** matrix)
 			{
 				if(matrix[i-1][j-1].tipo == 'M')
 				{
-					matrix[i][j].nMinas+=1;
+					matrix[i][j].nMinas++;
 				}
 
 				if(matrix[i-1][j].tipo == 'M')
 				{
-					matrix[i][j].nMinas+=1;
+					matrix[i][j].nMinas++;
 				}
 
 				if(matrix[i-1][j+1].tipo == 'M')
@@ -147,6 +132,24 @@ void llenarNUm(int rows, int lines, tipoCasilla** matrix)
 				}
 			}
 		}
+	}
+}
+
+void printMatrix(int rows, int lines, tipoCasilla** matrix)
+{
+	int i, j;
+	for(i = 1; i < rows-1; i++){
+
+
+		printf(" | ");
+		for (j = 1; j < lines-1; ++j)
+		{
+			printf ("%c | ", matrix[i][j].etiqueta);
+			//printf ("%c ",matrix[i][j].tipo );
+			//printf ("%d | ",matrix[i][j].nMinas);
+		}
+		printf("\n");
+		
 	}
 }
 		
