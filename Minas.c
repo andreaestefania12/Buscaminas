@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 struct minesweeper
 { 
 	char etiqueta;
@@ -23,16 +24,19 @@ void uncover(int rows, int lines, Matrix** matrix);
 
 void printMatrix(int rows, int lines, Matrix** matrix,int posRows, int posLines);
 
+void uncoverZero( Matrix** matrix,int posRows, int posLines);
 
 
+/* ##################################################
+				FUNCIÓN PRINCIPAL
+   #################################################*/
 
 
 int main(int argc, char *argv[])
 {
 	int rows = atoi(argv[1])+2;
 	int lines = atoi(argv[2])+2;
-	int minas = (rows + lines)/2;
-
+	int minas = (rows+lines-4)/2;
 
 	Matrix **matrix;
 
@@ -71,7 +75,6 @@ void fillMatrix(int rows, int lines, Matrix** matrix)
 }
 
 
-
 void putMinas(int rows, int lines, Matrix** matrix, int minas)
 {
 	int posRows, posLines,n;
@@ -95,7 +98,6 @@ void fillNum(int rows, int lines, Matrix** matrix)
 	{
 		for (j =  1 ; j < lines-1 ; ++j)
 		{
-			int minas=0;
 			if(matrix[i][j].type != 'M')
 			{
 				if(matrix[i-1][j-1].type == 'M')
@@ -156,6 +158,7 @@ void uncover(int rows, int lines, Matrix** matrix)
 
     	if(matrix[posRows][posLines].type == 'M')
     	{
+    		printMatrix(rows,lines,matrix,posRows,posLines);
     		printf("Perdiste :( \n");
     		break;
     	}
@@ -166,6 +169,12 @@ void uncover(int rows, int lines, Matrix** matrix)
     		{
     			printMatrix(rows,lines,matrix,posRows,posLines);
     		}
+
+    		else
+    		{
+    			uncoverZero(matrix,posRows,posLines);
+    			printMatrix(rows,lines,matrix,posRows,posLines);
+    		}
     	}
 
     }
@@ -173,24 +182,82 @@ void uncover(int rows, int lines, Matrix** matrix)
 }
 
 
+void uncoverZero( Matrix** matrix,int posRows, int posLines)
+{
+
+	if(matrix[posRows-1][posLines-1].minas == 0)
+	{
+		matrix[posRows-1][posLines-1].etiqueta = 'D';   //D ESTADO DESTAPADO
+
+	}
+
+	if(matrix[posRows-1][posLines].minas == 0)
+	{ 
+		matrix[posRows-1][posLines].etiqueta = 'D';
+
+	}
+
+	if(matrix[posRows-1][posLines+1].minas == 0)
+	{
+		matrix[posRows-1][posLines+1].etiqueta = 'D';
+
+	}
+
+	if(matrix[posRows][posLines-1].minas == 0)
+	{
+		matrix[posRows][posLines-1].etiqueta = 'D';
+
+	}
+
+	if(matrix[posRows][posLines+1].minas == 0)
+	{
+		matrix[posRows][posLines+1].etiqueta = 'D';
+
+	}
+
+	if(matrix[posRows+1][posLines-1].minas == 0)
+	{
+		matrix[posRows+1][posLines-1].etiqueta = 'D';	
+
+	}
+
+	if(matrix[posRows+1][posLines].minas == 0)
+	{
+		matrix[posRows+1][posLines].etiqueta = 'D';
+
+	}
+
+	if(matrix[posRows+1][posLines+1].minas == 0)
+	{
+		matrix[posRows+1][posLines+1].etiqueta = 'D';
+
+	}
+}
 
 void printMatrix(int rows, int lines, Matrix** matrix, int posRows, int posLines)
 {
 	int i, j;
 	for(i = 1; i < rows-1; i++){
 
-
 		printf(" | ");
 		for (j = 1; j < lines-1; ++j)
 		{
-			if((i==posRows) && (j==posLines))
+			if((i==posRows) && (j==posLines) ) 
 			{
-				printf("%d  |", matrix[i][j].minas);
-				matrix[i][j].etiqueta = 'x';
+				if (matrix[i][j].type == 'M')
+				{
+					printf("%c  |", matrix[i][j].type);
+				}
+
+				else
+				{
+					printf("%d  |", matrix[i][j].minas);
+					matrix[i][j].etiqueta = 'D';  //D estado descubierto
+				}
 			}
-			else if (matrix[i][j].etiqueta == 'x')
+			else if (matrix[i][j].etiqueta == 'D')
 			{
-				printf ("%d | ", matrix[i][j].minas);
+				printf ("%d  |", matrix[i][j].minas);
 			}
 
 			else
