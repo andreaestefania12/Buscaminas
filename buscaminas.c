@@ -14,7 +14,7 @@ void makeMatrix(int rows, int lines);
 
 void fillMatrix(int rows, int lines, int** matrix);
 
-int main(int argc, char  *argv[])
+int main(int argc, char *argv[])
 {
 	Matrix matrix;
 	int rows = atoi(argv[1]);
@@ -27,7 +27,7 @@ int main(int argc, char  *argv[])
 void makeMatrix(int rows, int lines, int** matrix)
 {
 	int i;
-	for (int i = 0; i < rows; ++i)
+	for (i = 0; i < rows; ++i)
 	{
 		matrix[i] = (int*) malloc (lines*(sizeof(int)));
 	}
