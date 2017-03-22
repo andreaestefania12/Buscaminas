@@ -3,6 +3,10 @@
 #include <time.h>
 
 
+/* ##################################################
+			Estructura Casillas del Juego
+   #################################################*/
+
 struct minesweeper
 { 
 	char etiqueta;
@@ -11,6 +15,12 @@ struct minesweeper
 };
 
 typedef struct minesweeper Matrix;
+
+
+/* ##################################################
+			Declaraciósn de Funciones
+   #################################################*/
+
 
 Matrix** makeMatrix(int rows, int lines);
 
@@ -176,9 +186,7 @@ void uncover(int rows, int lines, Matrix** matrix)
     			printMatrix(rows,lines,matrix,posRows,posLines);
     		}
     	}
-
     }
-
 }
 
 
@@ -188,7 +196,6 @@ void uncoverZero( Matrix** matrix,int posRows, int posLines)
 	if(matrix[posRows-1][posLines-1].minas == 0)
 	{
 		matrix[posRows-1][posLines-1].etiqueta = 'D';   //D ESTADO DESTAPADO
-
 	}
 
 	if(matrix[posRows-1][posLines].minas == 0)
