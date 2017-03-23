@@ -7,6 +7,7 @@
 			Estructura Casillas del Juego
    #################################################*/
 
+/* Se crea la estructura que vamos a utilizar mediante la matriz */
 struct minesweeper
 { 
 	char etiqueta;
@@ -21,6 +22,7 @@ typedef struct minesweeper Matrix;
 			Declaraciósn de Funciones
    #################################################*/
 
+/* Declaración de las funciones que se implementaran durante el programa*/
 
 Matrix** makeMatrix(int rows, int lines);
 
@@ -41,6 +43,7 @@ void uncoverZero( Matrix** matrix,int posRows, int posLines);
 				FUNCIÓN PRINCIPAL
    #################################################*/
 
+/*Función encargada de empaquetar todo las funciones del Buscaminas para mostrarlo al usuario*/
 
 int main(int argc, char *argv[])
 {
@@ -51,6 +54,7 @@ int main(int argc, char *argv[])
 	Matrix **matrix;
 
 	matrix= makeMatrix(rows,lines);
+
     fillMatrix(rows, lines, matrix);
     putMinas(rows,lines,matrix,minas);
     fillNum(rows, lines,matrix);
@@ -59,6 +63,12 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
+
+/* ##################################################
+		        FUNCIÓN CREAR MATRIZ
+   #################################################*/
+
+/* Crea la matriz dependiendo de las filas y columnas que ingresa el usuario*/ 
 
 Matrix** makeMatrix(int rows, int lines)
 {
@@ -71,6 +81,11 @@ Matrix** makeMatrix(int rows, int lines)
 
 	return matrix;
 }
+/* ##################################################
+		        FUNCIÓN LLENAR MATRIZ
+   #################################################*/
+
+/* Llena cada posición de la matriz con la estructura con los tipos de datos, etiqueta, type, minas*/
 
 void fillMatrix(int rows, int lines, Matrix** matrix)
 {
@@ -84,6 +99,11 @@ void fillMatrix(int rows, int lines, Matrix** matrix)
 		}
 }
 
+/* ##################################################
+		        FUNCIÓN PONER MINAS
+   #################################################*/
+
+/* Pone aleatoriamente minas en la matriz*/
 
 void putMinas(int rows, int lines, Matrix** matrix, int minas)
 {
@@ -99,6 +119,12 @@ void putMinas(int rows, int lines, Matrix** matrix, int minas)
 	}
 }
 
+/* ##################################################
+		        FUNCIÓN LLENAR NUMEROS
+   #################################################*/
+
+/* Recorre la matrix teniendo en cuenta que cantidad de minas se encuentras alrededor de la casilla 
+   en la posición i,j en la matriz poniendo el número de minas a sus posiciones adyacentes*/
 
 void fillNum(int rows, int lines, Matrix** matrix)
 {
@@ -154,6 +180,13 @@ void fillNum(int rows, int lines, Matrix** matrix)
 	}
 }
 
+/* ##################################################
+		        FUNCIÓN DESTAPAR NUMEROS
+   #################################################*/
+
+/*  Con una posción dada por el usuario destapa la casilla mostrando un número si hay una mina cerca, 
+    la mina en el caso que ya pierda el usuario*/
+
 void uncover(int rows, int lines, Matrix** matrix)
 {
 	int posRows;
@@ -189,6 +222,12 @@ void uncover(int rows, int lines, Matrix** matrix)
     }
 }
 
+/* ##################################################
+		        FUNCIÓN DESTAPAR CEROS
+   #################################################*/
+
+/* Con la posción dada por el usuario destapa la casilla, si es un numero 0 destapara los ceros adyacentes
+   a la casilla siempre que también sean ceros */
 
 void uncoverZero( Matrix** matrix,int posRows, int posLines)
 {
@@ -241,6 +280,12 @@ void uncoverZero( Matrix** matrix,int posRows, int posLines)
 	}
 }
 
+/* ##################################################
+		        FUNCIÓN MOSTRAR MATRIZ
+   #################################################*/
+
+/* Dibuja la matriz con filas y columnas asignadas por el usuario */
+
 void printMatrix(int rows, int lines, Matrix** matrix, int posRows, int posLines)
 {
 	int i, j;
@@ -254,7 +299,7 @@ void printMatrix(int rows, int lines, Matrix** matrix, int posRows, int posLines
 				if (matrix[i][j].type == 'M')
 				{
 					printf("%c  |", matrix[i][j].type);
-				}
+			}
 
 				else
 				{
@@ -271,8 +316,8 @@ void printMatrix(int rows, int lines, Matrix** matrix, int posRows, int posLines
 			{
 				printf("%c  |", matrix[i][j].etiqueta);
 			}
-
 		}
+
 		printf("\n");		
 	}
 
